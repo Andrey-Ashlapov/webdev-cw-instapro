@@ -111,7 +111,7 @@ const renderApp = () => {
     return renderAddPostPageComponent({
       appEl,
       onAddPostClick({ description, imageUrl }) {
-        // TODO: реализовать добавление поста в API
+        // TODO: реализовать добавление поста в API_
         fetch("postsHost", {
           method: "POST",
           headers: {
