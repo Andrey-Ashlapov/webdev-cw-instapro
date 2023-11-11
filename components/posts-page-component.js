@@ -13,6 +13,18 @@ export function renderPostsPageComponent({ appEl }) {
 
   const appHtml = posts
     .map((post) => {
+      function likes() {
+        if (post.likes.length == 0) {
+          return `0`;
+        }
+        if (post.likes.length == 1) {
+          return `${post.likes.name}`;
+        }
+        if (post.likes.length >= 2) {
+          return `${post.likes.name} и еще ${post.likes.length - 1} `;
+        }
+      }
+
       return `<li class="post">
       <div class="post-header" data-user-id="${post.user.id}">
         <img src="${post.user.imageUrl}" class="post-header__user-image">
@@ -22,19 +34,21 @@ export function renderPostsPageComponent({ appEl }) {
         <img class="post-image" src="${post.imageUrl}">
       </div>
       <div class="post-likes">
-        <button data-post-id="${post.id}" class="like-button">
+        <button data-post-id="${post.id}" data-post-like="${
+        post.isLiked
+      }" class="like-button">
           <img src="./assets/images/like-active.svg">
         </button>
         <p class="post-likes-text">
-          Нравится: <strong>${post.likes.length}</strong>
+          Нравится: <strong>${likes()}</strong>
         </p>
       </div>
       <p class="post-text">
-        <span class="user-name">${post.user.id}</span>
+        <span class="user-name">${post.user.name}:</span>
         ${post.description}
       </p>
       <p class="post-date">
-        19 минут назад
+      ${post.createdAt}
       </p>
     </li>`;
     })
@@ -50,6 +64,10 @@ export function renderPostsPageComponent({ appEl }) {
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
   });
+
+  for (let userEl of document.querySelectorAll(".button")) {
+    userEl.addEventListener("click", () => {});
+  }
 
   for (let userEl of document.querySelectorAll(".post-header")) {
     userEl.addEventListener("click", () => {
