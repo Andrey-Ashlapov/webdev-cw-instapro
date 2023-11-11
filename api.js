@@ -4,6 +4,8 @@ const personalKey = "prod";
 const baseHost = "https://webdev-hw-api.vercel.app";
 export const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
+import { getToken } from "./index.js";
+
 export function getPosts({ token }) {
   return fetch(postsHost, {
     method: "GET",
@@ -83,7 +85,7 @@ export function uploadImage({ file }) {
   });
 }
 
-export function addLike({ userId }) {
+export function addLike(userId) {
   return fetch(postsHost + "/" + userId + "/like", {
     method: "POST",
     headers: {
@@ -97,7 +99,7 @@ export function addLike({ userId }) {
   });
 }
 
-export function disLike({ userId }) {
+export function disLike(userId) {
   return fetch(postsHost + "/" + userId + "/dislike", {
     method: "POST",
     headers: {

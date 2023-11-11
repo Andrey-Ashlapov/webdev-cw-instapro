@@ -70,11 +70,18 @@ export function renderPostsPageComponent({ appEl }) {
 
   for (let userEl of document.querySelectorAll(".like-button")) {
     userEl.addEventListener("click", () => {
-      if ((userEl.dataset.isLiked = false)) {
-        addLike(data.id);
+      if (userEl.dataset.postLike === "false") {
+        console.log("Отправляю лайк для", userEl.dataset.postId);
+        addLike(userEl.dataset.postId);
       }
-      if ((userEl.dataset.isLiked = true)) {
-        disLike(data.id);
+      if (userEl.dataset.postLike === "true") {
+        console.log("Забираю лайк", userEl.dataset.postId);
+        disLike(userEl.dataset.postId);
+      }
+      if (userEl.dataset.postLike === "false") {
+        userEl.dataset.postLike = "true";
+      } else {
+        userEl.dataset.postLike = "false";
       }
     });
   }
