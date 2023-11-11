@@ -6,14 +6,12 @@ import { addLike, disLike } from "../api.js";
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
   console.log("Актуальный список постов:", posts);
-
   /**
    * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
-
   const appHtml = posts
-    .map((post) => {
+    .map((post, id) => {
       function likes() {
         if (post.likes.length == 0) {
           return `0`;
@@ -42,7 +40,7 @@ export function renderPostsPageComponent({ appEl }) {
       }" class="like-button">
           <img src="./assets/images/like-active.svg">
         </button>
-        <p class="post-likes-text">
+        <p class="post-likes-text" id="${id}">
           Нравится: <strong>${likes()}</strong>
         </p>
       </div>
@@ -70,9 +68,11 @@ export function renderPostsPageComponent({ appEl }) {
 
   for (let userEl of document.querySelectorAll(".like-button")) {
     userEl.addEventListener("click", () => {
+      console.log(userEl);
       if (userEl.dataset.postLike === "false") {
         console.log("Отправляю лайк для", userEl.dataset.postId);
         addLike(userEl.dataset.postId);
+        // document.querySelectorAll(".post-likes-text")
       }
       if (userEl.dataset.postLike === "true") {
         console.log("Забираю лайк", userEl.dataset.postId);
