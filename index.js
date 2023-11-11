@@ -15,6 +15,7 @@ import {
   removeUserFromLocalStorage,
   saveUserToLocalStorage,
 } from "./helpers.js";
+
 import { postsHost } from "./api.js";
 
 import { renderHeaderComponent } from "./components/header-component.js";

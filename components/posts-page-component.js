@@ -1,6 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage } from "../index.js";
+import { addLike, disLike } from "../api.js";
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -18,10 +19,12 @@ export function renderPostsPageComponent({ appEl }) {
           return `0`;
         }
         if (post.likes.length == 1) {
-          return `${post.likes.name}`;
+          return `${post.likes[Object.keys(post.likes)[0]].name}`;
         }
         if (post.likes.length >= 2) {
-          return `${post.likes.name} и еще ${post.likes.length - 1} `;
+          return `${post.likes[Object.keys(post.likes)[0]].name} и еще ${
+            post.likes.length - 1
+          } `;
         }
       }
 
@@ -65,8 +68,15 @@ export function renderPostsPageComponent({ appEl }) {
     element: document.querySelector(".header-container"),
   });
 
-  for (let userEl of document.querySelectorAll(".button")) {
-    userEl.addEventListener("click", () => {});
+  for (let userEl of document.querySelectorAll(".like-button")) {
+    userEl.addEventListener("click", () => {
+      if ((userEl.dataset.isLiked = false)) {
+        addLike(data.id);
+      }
+      if ((userEl.dataset.isLiked = true)) {
+        disLike(data.id);
+      }
+    });
   }
 
   for (let userEl of document.querySelectorAll(".post-header")) {

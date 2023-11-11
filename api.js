@@ -86,6 +86,9 @@ export function uploadImage({ file }) {
 export function addLike({ userId }) {
   return fetch(postsHost + "/" + userId + "/like", {
     method: "POST",
+    headers: {
+      Authorization: getToken(),
+    },
   }).then((response) => {
     if (response.status === 401) {
       throw new Error("Вы не авторизованы");
@@ -94,9 +97,12 @@ export function addLike({ userId }) {
   });
 }
 
-export function deleteLike({ userId }) {
-  return fetch(postsHost + "/" + userId + "/like", {
+export function disLike({ userId }) {
+  return fetch(postsHost + "/" + userId + "/dislike", {
     method: "POST",
+    headers: {
+      Authorization: getToken(),
+    },
   }).then((response) => {
     if (response.status === 401) {
       throw new Error("Вы не авторизованы");
